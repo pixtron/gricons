@@ -89,7 +89,7 @@ function runTasks(newVersion: string, releaseTag: string, isPublishRelease: bool
       {
         title: `Publish gricons ${newVersion} (${releaseTag})`,
         task: () => {
-          const args = ['publish'].concat(releaseTag ? ['--tag', releaseTag] : []);
+          const args = ['publish', '--access', 'public'].concat(releaseTag ? ['--tag', releaseTag] : []);
           if (isDryRun) {
             console.log('[dry-run] npm', args.join(' '));
           } else {
