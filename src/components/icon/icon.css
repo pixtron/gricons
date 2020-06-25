@@ -1,0 +1,35 @@
+:host {
+  display: inline-block;
+
+  width: 1em;
+  height: 1em;
+  font-size: 24px;
+
+  contain: strict;
+
+  fill: currentColor;
+
+  box-sizing: content-box !important;
+}
+
+:host .gricon {
+  fill: currentColor;
+}
+
+.icon-inner,
+.gricon,
+svg {
+  display: block;
+
+  height: 100%;
+  width: 100%;
+}
+
+
+/* Icon RTL
+ * -----------------------------------------------------------
+ */
+
+:host(.flip-rtl) .icon-inner {
+  transform: scaleX(-1);
+}
