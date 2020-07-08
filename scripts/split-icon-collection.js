@@ -6,6 +6,7 @@ const rimraf = require('rimraf');
 const mkdirp = require('mkdirp');
 
 const pathSprite = './node_modules/@gyselroth/icon-collection/src/icons.svg';
+const replaceDir = path.join(__dirname, '../src/replace-svg');
 const buildDir = path.join(__dirname, '../src/svg');
 
 splitSprite(pathSprite, buildDir);
@@ -14,21 +15,26 @@ async function splitSprite(pathSprite, buildDir) {
   console.log('Splitting svg sprite');
   await prepareBuildDir(buildDir);
 
+  const replaceIcons = await readDir(replaceDir);
   const symbols = await getSymbolsFromSprite(pathSprite);
 
   for (i=0; i < symbols.length; i++) {
     const symbol = symbols.item(i);
     const id = symbol.getAttribute('id');
-    const svg = symbol.getElementsByTagName('svg')[0];
     let svgString;
-
-    if (svg === undefined) {
-      // this is a symbol which does not contain a svg root, create svg root
-      svgString = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-        ${symbol.childNodes.toString()}
-      </svg>`;
+    if(replaceIcons.includes(`${id}.svg`)) {
+      svgString = await readFile(path.join(replaceDir, `${id}.svg`));
     } else {
-      svgString = svg.toString();
+      const svg = symbol.getElementsByTagName('svg')[0];
+
+      if (svg === undefined) {
+        // this is a symbol which does not contain a svg root, create svg root
+        svgString = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+          ${symbol.childNodes.toString()}
+        </svg>`;
+      } else {
+        svgString = svg.toString();
+      }
     }
 
     const outPath = path.join(buildDir, `${id}.svg`);
@@ -50,6 +56,22 @@ async function writeSvg(path, content) {
     await fs.writeFile(path, content);
   } catch(err) {
     console.error(`Could not write svg file ${path}`, err);
+  }
+}
+
+async function readDir(path) {
+  try {
+    return await fs.readdir(path);
+  } catch(err) {
+    console.error(`Could not read dir ${path}`, err);
+  }
+}
+
+async function readFile(path) {
+  try {
+    return await fs.readFile(path);
+  } catch(err) {
+    console.error(`Could not read file ${path}`, err);
   }
 }
 

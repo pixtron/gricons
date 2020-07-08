@@ -44,7 +44,6 @@
     {
       "name": "apps",
       "tags": [
-        "applications",
         "apps"
       ]
     },
@@ -211,10 +210,7 @@
     {
       "name": "close",
       "tags": [
-        "circle",
-        "close",
-        "delete",
-        "remove"
+        "close"
       ]
     },
     {
@@ -227,18 +223,13 @@
     {
       "name": "cloud",
       "tags": [
-        "circle",
-        "cloud",
-        "storage",
-        "weather",
-        "whether"
+        "cloud"
       ]
     },
     {
       "name": "cloud-upload",
       "tags": [
         "cloud",
-        "storage",
         "upload"
       ]
     },
@@ -410,8 +401,7 @@
     {
       "name": "expand",
       "tags": [
-        "expand",
-        "resize"
+        "expand"
       ]
     },
     {
@@ -561,7 +551,6 @@
     {
       "name": "folder",
       "tags": [
-        "file",
         "folder"
       ]
     },
@@ -778,9 +767,7 @@
     {
       "name": "image",
       "tags": [
-        "camera",
-        "image",
-        "photo"
+        "image"
       ]
     },
     {
